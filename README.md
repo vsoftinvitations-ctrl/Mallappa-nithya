@@ -1,3 +1,3 @@
-# Mallappa & Nithya (Manjula) — Wedding Invitation
+# Mallappa & Nithya — Wedding Invitation
 
-Digital wedding invitation for Mallappa & Nithya (Manjula).
+Digital wedding invitation for Mallappa & Nithya.
