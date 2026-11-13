@@ -936,8 +936,21 @@
 
     .time {
       font-family: var(--serif);
-      font-size: 1.6rem;
-      margin-top: 8px
+      font-size: clamp(1.45rem, 4.8vw, 1.8rem);
+      font-weight: 500;
+      color: var(--ink);
+      margin-top: 12px;
+      letter-spacing: .02em;
+    }
+
+    .reception-note {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 3.8vw, 1.4rem);
+      color: var(--mute);
+      margin: 10px auto 0;
+      max-width: 32ch;
+      line-height: 1.5;
+      letter-spacing: .02em;
     }
 
     .pin {
@@ -953,53 +966,6 @@
       color: var(--mute);
       font-size: 1.15rem;
       margin-top: 22px
-    }
-
-    /* wedding events schedule */
-    .schedule-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 340px;
-      margin: 22px auto 0;
-      padding: 16px 22px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid var(--gold-soft);
-      box-shadow: 0 4px 20px rgba(60, 50, 30, 0.05);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .schedule-item {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      font-family: var(--serif);
-      font-size: 1.35rem;
-      color: var(--ink);
-    }
-
-    .schedule-name {
-      font-weight: 500;
-      letter-spacing: 0.03em;
-    }
-
-    .schedule-dots {
-      flex: 1;
-      border-bottom: 1px dotted var(--gold);
-      margin: 0 4px;
-      min-width: 16px;
-      opacity: 0.55;
-    }
-
-    .schedule-val {
-      font-weight: 500;
-      color: var(--gold);
-      letter-spacing: 0.04em;
-      white-space: nowrap;
     }
 
     /* scroll indicators */
@@ -1363,11 +1329,7 @@
         dotted: "26.11.2026"
       },
       time: "Muhurtha: 12:12 PM",
-      schedule: [
-        { title: "Muhurtha", time: "12:12 PM" },
-        { title: "Reception", time: "12:30 PM" },
-        { title: "Lunch", time: "2:00 PM" }
-      ],
+      reception: "Reception followed by lunch from 12.30 to 2PM",
       venue: {
         name: "Shri Annadhanishwara Kalyana Mantapa",
         place: "Mundaragi, Gadag District",
@@ -1505,14 +1467,8 @@
   <div class="month r">${D.month.toUpperCase()}</div>
   <div class="day r" style="margin-top:10px">${D.day}</div>
   <div class="rule line-x r"></div>
-  <div class="schedule-wrap r">
-    ${W.schedule.map(s => `
-    <div class="schedule-item">
-      <span class="schedule-name">${s.title}</span>
-      <span class="schedule-dots" aria-hidden="true"></span>
-      <span class="schedule-val">${s.time}</span>
-    </div>`).join('')}
-  </div>
+  <div class="time r">${W.time}</div>
+  <p class="reception-note r">${W.reception}</p>
   <div class="countdown-wrap r">
     <div class="countdown-grid" id="countdown" aria-label="Wedding Countdown">
       <div class="countdown-item">
