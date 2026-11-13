@@ -953,6 +953,69 @@
       letter-spacing: .02em;
     }
 
+    /* divine blessings block */
+    .blessing-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: 12px auto 28px;
+      max-width: 440px;
+      padding: 0 16px;
+    }
+
+    .blessing-avatar {
+      width: clamp(78px, 19vw, 96px);
+      height: clamp(78px, 19vw, 96px);
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #f7e4be, #b8985a, #8c6e32);
+      box-shadow: 0 6px 22px rgba(60, 50, 30, 0.16), 0 0 0 1px rgba(184, 152, 90, 0.35);
+      margin-bottom: 14px;
+      transition: transform 0.4s ease;
+    }
+
+    .blessing-avatar:hover {
+      transform: scale(1.04);
+    }
+
+    .blessing-avatar img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      background: var(--ivory);
+    }
+
+    .blessing-lead {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.08rem, 3.4vw, 1.28rem);
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      margin: 0 0 4px;
+    }
+
+    .blessing-name {
+      font-family: var(--serif);
+      font-size: clamp(1.22rem, 4vw, 1.58rem);
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: 0.02em;
+      margin: 0;
+    }
+
+    .blessing-place {
+      font-family: var(--serif);
+      font-size: clamp(0.98rem, 3.2vw, 1.15rem);
+      color: var(--mute);
+      letter-spacing: 0.04em;
+      margin: 5px 0 0;
+    }
+
     .pin {
       width: 22px;
       height: 22px;
@@ -1330,6 +1393,12 @@
       },
       time: "Muhurtha: 12:12 PM",
       reception: "Reception followed by lunch from 12.30 to 2PM",
+      blessing: {
+        photo: "/blessing.png",
+        lead: "With the Blessings of",
+        name: "Shri Shri Shri Shivakumara Mahaswamigalu",
+        place: "Siddaganga Kshetra, Tumakuru"
+      },
       venue: {
         name: "Shri Annadhanishwara Kalyana Mantapa",
         place: "Mundaragi, Gadag District",
@@ -1364,6 +1433,7 @@
     const PHOTOS = {
       preloader: "/image.png",
       main: "/main.jpeg",
+      blessing: "/blessing.png",
       gallery: [
         "/1.jpeg",
         "/2.jpeg",
@@ -1423,6 +1493,15 @@
 <section id="intro">
   <div class="cover r"><img src="${PHOTOS.main}" alt="${W.short}" decoding="async"></div>
   <div class="wrap">
+    <div class="blessing-block r">
+      <div class="blessing-avatar">
+        <img src="${PHOTOS.blessing}" alt="${W.blessing.name}" decoding="async">
+      </div>
+      <p class="blessing-lead">${W.blessing.lead}</p>
+      <h3 class="blessing-name">${W.blessing.name}</h3>
+      <p class="blessing-place">${W.blessing.place}</p>
+    </div>
+    <div class="rule line-x r" style="margin:26px auto"></div>
     <p class="label r">Together with their families</p>
     <h2 class="intro-names r" aria-label="${W.groom} & ${W.bride}">
       <div class="script-line script-groom">
