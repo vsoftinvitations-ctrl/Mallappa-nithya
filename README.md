@@ -1,3 +1,3 @@
-# Divya & Nidhin — Wedding Invitation
+# Mallappa & Nithya (Manjula) — Wedding Invitation
 
-Digital wedding invitation for Divya Prasad & Nidhin.
+Digital wedding invitation for Mallappa & Nithya (Manjula).
