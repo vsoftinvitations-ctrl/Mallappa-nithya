@@ -1640,25 +1640,30 @@
       }, { passive: true });
     }
 
-    /* ===== Smart WhatsApp RSVP Handler (Bypasses Meta server 4-byte emoji ? bug) ===== */
+    /* ===== Smart WhatsApp RSVP Handler ===== */
     const btnRsvp = document.getElementById('btn-rsvp-wa');
     if (btnRsvp) {
       btnRsvp.addEventListener('click', function (e) {
         e.preventDefault();
         const phone = "91" + W.rsvpPhone;
         const text = encodeURIComponent(W.rsvpMsg);
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const nativeUrl = `whatsapp://send?phone=${phone}&text=${text}`;
+        const webUrl = `https://api.whatsapp.com/send/?phone=${phone}&text=${text}`;
 
-        if (isMobile) {
-          // Native deep link: opens native app directly, completely bypassing Meta's web redirect bug
-          window.location.href = `whatsapp://send?phone=${phone}&text=${text}`;
-          setTimeout(() => {
-            window.location.href = `https://api.whatsapp.com/send/?phone=${phone}&text=${text}`;
-          }, 1200);
-        } else {
-          // Desktop: opens WhatsApp Web directly, skipping the intermediate landing page that corrupts emoji into ?
-          window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${text}`, '_blank');
-        }
+        // Directly open WhatsApp application (Mac / Windows desktop app, or iOS / Android mobile app).
+        // This lands directly in the chat with +91 9620277933 and the full text + ribbon heart emoji 💝 intact,
+        // avoiding both WhatsApp Web's QR code login trap and Meta's web server emoji corruption bug.
+        window.location.href = nativeUrl;
+
+        // Fallback for browsers/devices without the WhatsApp app installed:
+        const fallbackTimer = setTimeout(() => {
+          if (!document.hidden) {
+            window.location.href = webUrl;
+          }
+        }, 1800);
+
+        window.addEventListener('blur', () => clearTimeout(fallbackTimer), { once: true });
+        window.addEventListener('pagehide', () => clearTimeout(fallbackTimer), { once: true });
       });
     }
 
