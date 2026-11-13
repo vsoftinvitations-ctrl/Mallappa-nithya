@@ -955,6 +955,143 @@
       margin-top: 22px
     }
 
+    /* wedding events schedule */
+    .schedule-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      max-width: 340px;
+      margin: 22px auto 0;
+      padding: 16px 22px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--gold-soft);
+      box-shadow: 0 4px 20px rgba(60, 50, 30, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .schedule-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      color: var(--ink);
+    }
+
+    .schedule-name {
+      font-weight: 500;
+      letter-spacing: 0.03em;
+    }
+
+    .schedule-dots {
+      flex: 1;
+      border-bottom: 1px dotted var(--gold);
+      margin: 0 4px;
+      min-width: 16px;
+      opacity: 0.55;
+    }
+
+    .schedule-val {
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    /* scroll indicators */
+    .scroll-cue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 36px;
+    }
+
+    .scroll-cue-text {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.85;
+    }
+
+    .scroll-cue-arrow {
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+      animation: cueBob 1.8s ease-in-out infinite;
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 15;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .scroll-indicator.visible {
+      opacity: 1;
+    }
+
+    .scroll-indicator.hide {
+      opacity: 0;
+      transform: translate(-50%, 12px);
+      pointer-events: none;
+    }
+
+    .scroll-indicator-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: rgba(250, 246, 238, 0.94);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(184, 152, 90, 0.4);
+      box-shadow: 0 4px 18px rgba(59, 52, 43, 0.14);
+    }
+
+    .scroll-indicator-text {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .scroll-indicator-arrow {
+      width: 14px;
+      height: 14px;
+      color: var(--gold);
+      animation: cueBob 1.8s ease-in-out infinite;
+    }
+
+    @keyframes cueBob {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(5px);
+        opacity: 1;
+      }
+    }
+
     
     /* countdown */
     .countdown-wrap {
@@ -1226,10 +1363,15 @@
         dotted: "26.11.2026"
       },
       time: "Muhurtha: 12:12 PM",
+      schedule: [
+        { title: "Muhurtha", time: "12:12 PM" },
+        { title: "Reception", time: "12:30 PM" },
+        { title: "Lunch", time: "2:00 PM" }
+      ],
       venue: {
         name: "Shri Annadhanishwara Kalyana Mantapa",
         place: "Mundaragi, Gadag District",
-        map: "https://www.google.com/maps/search/?api=1&query=Shri+Annadhanishwara+Kalyana+Mantapa+Mundaragi+Gadag"
+        map: "https://maps.app.goo.gl/XU2z8VpUjaKmLnp37?g_st=ac"
       },
       tagline: "A celebration of love, family & togetherness",
       quotes: [
@@ -1247,7 +1389,7 @@
         },
         {
           title: "Bride's Family",
-          names: "Mr. Ramappa Belavalakoppa & Mrs. Kamalavva Belavalakoppa",
+          names: "Mr. Ramappa & Mrs. Kamalavva",
           lines: [
             "Belavalakoppa Family"
           ]
@@ -1348,6 +1490,12 @@
     </h2>
     ${orn}
     <p class="quote r">“${W.quotes[0]}”</p>
+    <div class="scroll-cue r" aria-hidden="true">
+      <span class="scroll-cue-text">Scroll Down</span>
+      <svg class="scroll-cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 9l6 6 6-6"/>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -1357,7 +1505,14 @@
   <div class="month r">${D.month.toUpperCase()}</div>
   <div class="day r" style="margin-top:10px">${D.day}</div>
   <div class="rule line-x r"></div>
-  <div class="time r">${W.time}</div>
+  <div class="schedule-wrap r">
+    ${W.schedule.map(s => `
+    <div class="schedule-item">
+      <span class="schedule-name">${s.title}</span>
+      <span class="schedule-dots" aria-hidden="true"></span>
+      <span class="schedule-val">${s.time}</span>
+    </div>`).join('')}
+  </div>
   <div class="countdown-wrap r">
     <div class="countdown-grid" id="countdown" aria-label="Wedding Countdown">
       <div class="countdown-item">
@@ -1463,7 +1618,15 @@
   <p class="quote r">Together, forever begins here.</p>
   <p class="small r" style="margin-top:28px">With love and blessings</p>
   ${orn}
-</div></section>`;
+</div></section>
+<div class="scroll-indicator" id="scroll-indicator" aria-hidden="true">
+  <div class="scroll-indicator-pill">
+    <span class="scroll-indicator-text">Scroll Down</span>
+    <svg class="scroll-indicator-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M6 9l6 6 6-6"/>
+    </svg>
+  </div>
+</div>`;
     function fam(f) {
       return `<div class="r">
   <p class="label">${f.title}</p>
@@ -1597,7 +1760,21 @@
       setTimeout(() => {
         const inames = document.querySelector('#intro .intro-names');
         if (inames) inames.classList.add('in');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        if (scrollIndicator) scrollIndicator.classList.add('visible');
       }, 500);
+    }
+
+    /* ===== Scroll Down Indicator Handler ===== */
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    if (scrollIndicator) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 40) {
+          scrollIndicator.classList.add('hide');
+        } else if (opened) {
+          scrollIndicator.classList.remove('hide');
+        }
+      }, { passive: true });
     }
 
     /* ===== Universal Tap Handling (Works across all mobile devices, tablets & browsers) ===== */
