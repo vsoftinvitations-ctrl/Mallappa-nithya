@@ -1190,10 +1190,10 @@
       compliments: ["Visakh", "Devipriya", "Vijay Visakh"]
     };
     const PHOTOS = {
-      preloader: "/image%20copy%202.png",
-      main: "/image.png",
+      preloader: "/main.jpeg",
+      main: "/main.jpeg",
       gallery1: "/image.png",
-      gallery2: "/image%20copy.png"
+      gallery2: "/main.jpeg"
     };
     /* ===== Render ===== */
     const orn = '<svg class="orn r" viewBox="0 0 150 18" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 9h55M95 9h55"/><circle cx="75" cy="9" r="4"/><circle cx="65" cy="9" r="2.5"/><circle cx="85" cy="9" r="2.5"/></svg>';
@@ -1244,7 +1244,7 @@
 </section>
 
 <section id="intro">
-  <div class="cover r"><img src="${PHOTOS.main}" alt="Divya and Nidhin" decoding="async"></div>
+  <div class="cover r"><img src="${PHOTOS.main}" alt="${W.short}" decoding="async"></div>
   <div class="wrap">
     <p class="label r">Together with their families</p>
     <h2 class="intro-names r" aria-label="${W.bride} & ${W.groom}">
@@ -1361,8 +1361,8 @@
 
 <section><div class="wrap" style="max-width:560px">
   <div class="gal">
-    <div class="ph ga r"><img src="${PHOTOS.gallery1}" alt="Divya and Nidhin" loading="lazy" decoding="async"></div>
-    <div class="ph gb r"><img src="${PHOTOS.gallery2}" alt="Divya and Nidhin" loading="lazy" decoding="async"></div>
+    <div class="ph ga r"><img src="${PHOTOS.gallery1}" alt="${W.short}" loading="lazy" decoding="async"></div>
+    <div class="ph gb r"><img src="${PHOTOS.gallery2}" alt="${W.short}" loading="lazy" decoding="async"></div>
   </div>
 </div></section>
 
